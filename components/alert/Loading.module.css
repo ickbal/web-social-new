@@ -1,0 +1,41 @@
+.loading {
+  font-family: monospace;
+  display: inline-block;
+  clip-path: inset(0 3ch 0 0);
+  animation: l 1s steps(4) infinite;
+}
+
+@keyframes l {
+  to {
+    clip-path: inset(0 -1ch 0 0);
+  }
+}
+
+.loadingContainer {
+  @apply fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50;
+}
+
+.loadingSpinner {
+  @apply relative w-16 h-16;
+}
+
+.loadingSpinner::before,
+.loadingSpinner::after {
+  @apply content-[''] absolute w-full h-full rounded-full;
+}
+
+.loadingSpinner::before {
+  @apply border-4 border-blue-500/20;
+}
+
+.loadingSpinner::after {
+  @apply border-4 border-t-blue-500 animate-spin;
+}
+
+.loadingText {
+  @apply mt-4 text-lg font-medium text-white;
+}
+
+.loadingSubtext {
+  @apply mt-1 text-sm text-gray-300;
+}

@@ -1,0 +1,18 @@
+{
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ],
+  "env": {
+    "SITE_NAME": "Ickbal Watch Party",
+    "PUBLIC_DOMAIN": "https://ickbal-watch-party.vercel.app",
+    "REDIS_URL": "redis://localhost:6379",
+    "NEXTAUTH_URL": "https://ickbal-watch-party.vercel.app",
+    "NEXTAUTH_SECRET": "your-secret-key-change-in-production"
+  }
+}
