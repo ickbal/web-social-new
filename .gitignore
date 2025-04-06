@@ -27,3 +27,5 @@ yarn-error.log*
 .iml
 log.txt
 *.iml
+
+echo ".env" >> .gitignore
