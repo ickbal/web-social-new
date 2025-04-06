@@ -2,8 +2,11 @@
 FROM node:18-alpine AS deps
 WORKDIR /app
 
+# Install yarn directly using the official method
+RUN apk add --no-cache curl bash && \
+    curl -o- -L https://yarnpkg.com/install.sh | bash
+
 # Ensure yarn is installed and check its version
-RUN npm install -g yarn
 RUN yarn --version
 
 # Check and install necessary libraries
