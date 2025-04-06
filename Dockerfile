@@ -2,20 +2,20 @@
 FROM node:18-alpine AS deps
 WORKDIR /app
 
-# Install yarn directly using the official method
-RUN apk add --no-cache curl bash && \
-    curl -o- -L https://yarnpkg.com/install.sh | bash
+# Install required packages (curl, bash, and libc6-compat)
+RUN apk update && apk add --no-cache curl bash libc6-compat
 
-# Ensure yarn is installed and check its version
+# Install Yarn using the official installation script
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+# Add Yarn to PATH; the script installs Yarn to /root/.yarn/bin by default
+ENV PATH="/root/.yarn/bin:${PATH}"
+
+# Verify Yarn installation
 RUN yarn --version
 
-# Check and install necessary libraries
-RUN apk update && apk add --no-cache libc6-compat
-
-# Clean old node_modules and yarn.lock, then install dependencies
-RUN rm -rf node_modules yarn.lock
+# Copy dependency files and install dependencies
 COPY package.json yarn.lock ./
-RUN yarn install --verbose || tail -n 100 /root/.npm/_logs/*-debug.log
+RUN yarn install --verbose
 
 # Rebuild the source code only when needed
 FROM node:18-alpine AS builder
