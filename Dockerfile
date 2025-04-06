@@ -11,6 +11,8 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN yarn cache clean --force
+
 RUN yarn install --frozen-lockfile
 
 # Production image, copy all the files and run next
